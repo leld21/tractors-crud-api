@@ -6,8 +6,8 @@ export type Tractor = {
 };
 
 export const TractorSchema: Schema = new Schema<Tractor>({
-  name: String,
-  image_base64: String,
+  name: { type: String, required: true },
+  image_base64: { type: String, required: false },
 });
 
 export const TractorModel: Model<Tractor> = model("Tractor", TractorSchema);
