@@ -40,4 +40,13 @@ describe("SaveTractorService", () => {
     };
     await expect(sut.save(tractor)).resolves.toBeTruthy();
   });
+
+  test("Should throw if image provided is not base 64", async () => {
+    const { sut } = makeSut();
+    const tractor = {
+      name: "any name",
+      image_base64: "not base 64",
+    };
+    await expect(sut.save(tractor)).rejects.toThrow();
+  });
 });
