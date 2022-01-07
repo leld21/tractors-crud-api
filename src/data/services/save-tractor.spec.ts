@@ -8,14 +8,36 @@ class TractorsRepositorySpy implements TractorsRepository {
   }
 }
 
+type SutTypes = {
+  sut: SaveTractorService;
+  tractorsRepositorySpy: TractorsRepositorySpy;
+};
+
+const makeSut = (): SutTypes => {
+  const repositorySpy = new TractorsRepositorySpy();
+  const sut = new SaveTractorService(repositorySpy);
+  return {
+    sut,
+    tractorsRepositorySpy: repositorySpy,
+  };
+};
+
 describe("SaveTractorService", () => {
   test("Should throw if no name is provided", async () => {
-    const repositorySpy = new TractorsRepositorySpy();
-    const sut = new SaveTractorService(repositorySpy);
+    const { sut } = makeSut();
     const tractor = {
       name: "",
       image_base64: "any image",
     };
     await expect(sut.save(tractor)).rejects.toThrow();
+  });
+
+  test("Should resolve if no image is provided and a name is provided", async () => {
+    const { sut } = makeSut();
+    const tractor = {
+      name: "any name",
+      image_base64: "",
+    };
+    await expect(sut.save(tractor)).resolves.toBeTruthy();
   });
 });
