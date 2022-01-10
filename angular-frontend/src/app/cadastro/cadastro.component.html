@@ -1,0 +1,22 @@
+<div class="form">
+    <div class="form-container">
+
+        <form [formGroup]="tratorCadastro" (ngSubmit)="onSubmit()">
+            <div class="title">
+                <h1>Cadastre um trator:</h1>
+            </div>
+
+            <div class="form-group">
+                <label for="nome">Nome:</label>
+                <input required class="form-control" placeholder="MASSEY FERGUSON MF 6360 2010" formControlName="name">
+            </div>
+            <div class="form-group">
+                <label for="file">Imagem:</label>
+                <input type="file" name="file" class="form-control" (change)="onFileSelect($event)" />
+            </div>
+            <div class="form-group">
+                <input type="submit">
+            </div>
+        </form>
+    </div>
+</div>
